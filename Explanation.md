@@ -43,7 +43,7 @@ void SHA256::update(const std::string& data) {
 }
 ```
 
-###processBlock Method
+### processBlock Method
 This method processes a 64-byte block of data. It involves:
 
 - Initializing a message schedule w with 64 entries.
