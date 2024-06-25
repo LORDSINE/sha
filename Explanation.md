@@ -93,7 +93,7 @@ std::string SHA256::digest() {
 }
 ```
 
-## Helper Functions
+# Helper Functions
 These functions perform various bitwise operations required by the SHA-256 algorithm:
 
 - rotr: Right rotation.
@@ -102,7 +102,7 @@ These functions perform various bitwise operations required by the SHA-256 algor
 - sigma0, sigma1: Functions used in the SHA-256 compression function.
 - gamma0, gamma1: Functions used to extend the message schedule.
 
-## main Function
+# main Function
 The main function demonstrates the use of the SHA256 class. It reads a string from the user, updates the hash with this string, computes the final hash, and prints it.
 
 ```
