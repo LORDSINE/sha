@@ -184,18 +184,16 @@ int main() {
 	    std::cout << "Enter the file to hash: ";
 	    std::cin >> file;
 
-	    std::ifstream inputFile(file);
-
+	    std::ifstream inputFile(file, std::ios::binary);
 	    if (!inputFile) {
 		    std::cerr << "Error opening file!!!" << std::endl;
 		    return EXIT_FAILURE;
 	    }
 
-	    std::string line;
-	    while (std::getline(inputFile, line)) {
-		    input = input + line;
-	    }
-
+	    std::stringstream buffer;
+	    buffer << inputFile.rdbuf();
+	    input = buffer.str();
+	    
 	    inputFile.close();
 
     } else {
