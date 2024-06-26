@@ -4,6 +4,7 @@
 #include <sstream>
 #include <bitset>
 #include <cstring>
+#include <fstream>
 
 class SHA256 {
 public:
@@ -167,13 +168,44 @@ uint32_t SHA256::gamma1(uint32_t x) {
 int main() {
     SHA256 sha256;
     std::string input;
+    std::string file;
+    char chk;
 
-    std::cout << "Enter the text to hash: ";
-    std::getline(std::cin, input);
+    std::cout << "What do you want to hash ? (File (f) or input text (t) )\n=>";
+    std::cin >> chk;
 
+    if ( chk == 't' ) {
+	    
+	    std::cout << "Enter the text to hash: ";
+	    std::getline(std::cin, input);
+
+    } else if ( chk == 'f' ) {
+
+	    std::cout << "Enter the file to hash: ";
+	    std::cin >> file;
+
+	    std::ifstream inputFile(file);
+
+	    if (!inputFile) {
+		    std::cerr << "Error opening file!!!" << std::endl;
+		    return EXIT_FAILURE;
+	    }
+
+	    std::string line;
+	    while (std::getline(inputFile, line)) {
+		    input = input + line;
+	    }
+
+	    inputFile.close();
+
+    } else {
+	    std::cerr << "Invalid Selection!!!";
+	    return EXIT_FAILURE;
+    }
+    
     sha256.update(input);
     std::string hash = sha256.digest();
 
     std::cout << "SHA-256 hash: " << hash << std::endl;
-    return 0;
+    return EXIT_SUCCESS;
 }
