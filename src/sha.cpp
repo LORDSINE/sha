@@ -177,6 +177,7 @@ int main() {
     if ( chk == 't' ) {
 	    
 	    std::cout << "Enter the text to hash: ";
+	    std::cin.ignore();
 	    std::getline(std::cin, input);
 
     } else if ( chk == 'f' ) {
