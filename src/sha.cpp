@@ -174,32 +174,38 @@ int main() {
     std::cout << "What do you want to hash ? (File (f) or input text (t) )\n=>";
     std::cin >> chk;
 
-    if ( chk == 't' ) {
+    switch ( chk ) {
+
+	    case 't':{
+
+		    std::cout << "Enter the text to hash: ";
+		    std::cin.ignore();
+		    std::getline(std::cin, input);
+		    break;}
+
+	    case 'f':{
+		    
+		    std::cout << "Enter the file to hash: ";
+		    std::cin >> file;
+
+		    std::ifstream inputFile(file, std::ios::binary);
+		    if (!inputFile) {
+			    std::cerr << "Error opening file!!!" << std::endl;
+			    return EXIT_FAILURE;
+		    }
+
+		    std::stringstream buffer;
+		    buffer << inputFile.rdbuf();
+		    input = buffer.str();
 	    
-	    std::cout << "Enter the text to hash: ";
-	    std::cin.ignore();
-	    std::getline(std::cin, input);
+		    inputFile.close();
+		    break;}
 
-    } else if ( chk == 'f' ) {
+	    default:
 
-	    std::cout << "Enter the file to hash: ";
-	    std::cin >> file;
-
-	    std::ifstream inputFile(file, std::ios::binary);
-	    if (!inputFile) {
-		    std::cerr << "Error opening file!!!" << std::endl;
+		    std::cerr << "Invalid Selection!!!";
 		    return EXIT_FAILURE;
-	    }
 
-	    std::stringstream buffer;
-	    buffer << inputFile.rdbuf();
-	    input = buffer.str();
-	    
-	    inputFile.close();
-
-    } else {
-	    std::cerr << "Invalid Selection!!!";
-	    return EXIT_FAILURE;
     }
     
     sha256.update(input);
